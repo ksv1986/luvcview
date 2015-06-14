@@ -1,0 +1,110 @@
+/******************************************************************************/
+#	 	luvcview: Sdl video Usb Video Class grabber          .         #
+#This package work with the Logitech UVC based webcams with the mjpeg feature. #
+#All the decoding is in user space with the embedded jpeg decoder              #
+#.                                                                             #
+# 	Copyright (C) 2005 2006 2007 Laurent Pinchart &&  Michel Xhaard	       #
+#                                                                              #
+# This program is free software; you can redistribute it and/or modify         #
+# it under the terms of the GNU General Public License as published by         #
+# the Free Software Foundation; either version 2 of the License, or            #
+# (at your option) any later version.                                          #
+#                                                                              #
+# This program is distributed in the hope that it will be useful,              #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of               #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                #
+# GNU General Public License for more details.                                 #
+#                                                                              #
+# You should have received a copy of the GNU General Public License            #
+# along with this program; if not, write to the Free Software                  #
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA    #
+#                                                                              #
+/******************************************************************************/
+
+CREDITS:
+--------
+Original code
+ from spcaview Copyright 2003 2004 2005 2006 Michel Xhaard
+
+Avilib  Some utilities for writing and reading AVI files.
+ *  These are not intended to serve for a full blown
+ *  AVI handling software (this would be much too complex)
+ *  The only intention is to write out MJPEG encoded
+ *  AVIs with sound and to be able to read them back again.
+ *  These utilities should work with other types of codecs too, however.
+ *
+ *  Copyright (C) 1999 Rainer Johanni <Rainer@Johanni.de>
+
+SDL Simple DirectMedia Layer http://www.libsdl.org
+ *	Everybody at Loki Software, Inc. for their great contributions! 
+        and Tyler Montbriand <tsm@accesscomm.ca> for a lot of advise :)
+JPEG decoder from http://www.bootsplash.org/
+ 	(w) August 2001 by Michael Schroeder, <mls@suse.de>
+
+
+WHO CAN I BLAME?
+================
+Current Usb video class maintainer : Laurent Pinchart  
+Current luvcview maintainer : Michel Xhaard <mxhaard@free.fr>
+
+
+DISCLAIMER:
+-----------
+Use this program as you see fit. We are not liable for damages or illegal use
+of it whatsoever. You are on your own.
+Use of this code is at your own risks. There is absolutely no waranty.
+Have fun with it!
+
+BASIC INSTALLATION:
+-------------------
+These are generic installation instructions.
+You need sdl installed with the headers http://www.libsdl.org 
+to compile all type:
+make
+to install in /usr/local/bin as root:
+make install 
+to clean the last compile work:
+
+the package only need libsdl the jpeg encoder and decoder is now part of the package and allow to work with small footprint
+for embedded device. libsdl provide the necessary layer to work on the Linux framebuffer or a Xserver
+ 
+USAGE:
+------
+luvcview [-h -d -s -g -f -L -l -r -i] [-o outputfile]
+ 	Grabber Recorder mode
+ 	    -h	show this usage message.
+ 	    -d  device ask the driver to use specified video output device (/dev/video1) 
+	    -o outputfile  causes the program to output avi  with image data received from the video device to the specified file.
+	    -g grab with READ method instead of default MMAP
+	    -f video format 	yuv YUYV		fourcc YUY2 
+	    			jpg JPEG        	fourcc MJPG
+
+ 	    -s	widthxheight ask the driver for input size
+ 	    -t  display statistics 
+	    -r  read control settings from luvcview.cfg
+	    -l  list control settings of device
+	    -L  list possible formats of device
+	    -i fps   set the frame interval in fps
+	    
+
+In Grabber mode the following keys are active
+    {SDLK_n, A_BRIGHTNESS_UP},
+    {SDLK_b, A_BRIGHTNESS_DOWN},
+    {SDLK_x, A_CONTRAST_UP},
+    {SDLK_w, A_CONTRAST_DOWN},
+    {SDLK_c, A_SATURATION_UP},
+    {SDLK_v, A_SATURATION_DOWN},
+    {SDLK_z, A_GAIN_UP},
+    {SDLK_a, A_GAIN_DOWN},
+    {SDLK_r, A_SHARPNESS_UP},
+    {SDLK_e, A_SHARPNESS_DOWN},
+    {SDLK_y, A_CUSTOM_A},
+    {SDLK_t, A_CUSTOM_B},
+    {SDLK_f, A_SWITCH_LIGHTFREQFILT},
+    {SDLK_s, A_SCREENSHOT},
+    {SDLK_p, A_RECORD_TOGGLE},
+    {SDLK_l, A_RESET},
+    {SDLK_q, A_QUIT},
+    {SDLK_F1, A_SAVE}, //sauve config file
+    {SDLK_F2, A_LOAD}, //restaure config file
+
