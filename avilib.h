@@ -1,8 +1,8 @@
 /*
  *  avilib.h
  *
- *  Copyright (C) Thomas Östreich - June 2001
- *  multiple audio track support Copyright (C) 2002 Thomas Östreich
+ *  Copyright (C) Thomas Ã–streich - June 2001
+ *  multiple audio track support Copyright (C) 2002 Thomas Ã–streich
  *
  *  Original code:
  *  Copyright (C) 1999 Rainer Johanni <Rainer@Johanni.de> 

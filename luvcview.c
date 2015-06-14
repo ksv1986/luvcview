@@ -53,7 +53,7 @@
 #define TO_FIXED(X) (((Sint32)(X))<<(FIXED_BITS))
 #define FROM_FIXED(X) (((Sint32)(X))>>(FIXED_BITS))
 
-#define INCPANTILT 64 // 1°
+#define INCPANTILT 64 // 1Â°
 
 typedef enum action_gui {
 /* 0..7..15 action top */
