@@ -5,23 +5,23 @@
  *  multiple audio track support Copyright (C) 2002 Thomas Östreich
  *
  *  Original code:
- *  Copyright (C) 1999 Rainer Johanni <Rainer@Johanni.de> 
+ *  Copyright (C) 1999 Rainer Johanni <Rainer@Johanni.de>
  *
  *  This file is part of transcode, a linux video stream processing tool
- *      
+ *
  *  transcode is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2, or (at your option)
  *  any later version.
- *   
+ *
  *  transcode is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *   
+ *
  *  You should have received a copy of the GNU General Public License
  *  along with GNU Make; see the file COPYING.  If not, write to
- *  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA. 
+ *  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
  *
  */
 
@@ -58,22 +58,19 @@
 
 #define AVI_MAX_TRACKS 8
 
-typedef struct
-{
-  off_t key;
-  off_t pos;
-  off_t len;
+typedef struct {
+    off_t key;
+    off_t pos;
+    off_t len;
 } video_index_entry;
 
-typedef struct
-{
-   off_t pos;
-   off_t len;
-   off_t tot;
+typedef struct {
+    off_t pos;
+    off_t len;
+    off_t tot;
 } audio_index_entry;
 
-typedef struct track_s
-{
+typedef struct track_s {
 
     long   a_fmt;             /* Audio format, see #defines below */
     long   a_chans;           /* Audio channels, 0 for no audio */
@@ -88,106 +85,102 @@ typedef struct track_s
     char   audio_tag[4];      /* Tag of audio data */
     long   audio_posc;        /* Audio position: chunk */
     long   audio_posb;        /* Audio position: byte within chunk */
- 
-    off_t a_codech_off;       /* absolut offset of audio codec information */ 
-    off_t a_codecf_off;       /* absolut offset of audio codec information */ 
+
+    off_t a_codech_off;       /* absolut offset of audio codec information */
+    off_t a_codecf_off;       /* absolut offset of audio codec information */
 
     audio_index_entry *audio_index;
 
 } track_t;
 
-typedef struct
-{
-  uint32_t  bi_size;
-  uint32_t  bi_width;
-  uint32_t  bi_height;
-  uint16_t  bi_planes;
-  uint16_t  bi_bit_count;
-  uint32_t  bi_compression;
-  uint32_t  bi_size_image;
-  uint32_t  bi_x_pels_per_meter;
-  uint32_t  bi_y_pels_per_meter;
-  uint32_t  bi_clr_used;
-  uint32_t  bi_clr_important;
+typedef struct {
+    uint32_t  bi_size;
+    uint32_t  bi_width;
+    uint32_t  bi_height;
+    uint16_t  bi_planes;
+    uint16_t  bi_bit_count;
+    uint32_t  bi_compression;
+    uint32_t  bi_size_image;
+    uint32_t  bi_x_pels_per_meter;
+    uint32_t  bi_y_pels_per_meter;
+    uint32_t  bi_clr_used;
+    uint32_t  bi_clr_important;
 } BITMAPINFOHEADER_avilib;
 
-typedef struct
-{
-  uint16_t  w_format_tag;
-  uint16_t  n_channels;
-  uint32_t  n_samples_per_sec;
-  uint32_t  n_avg_bytes_per_sec;
-  uint16_t  n_block_align;
-  uint16_t  w_bits_per_sample;
-  uint16_t  cb_size;
+typedef struct {
+    uint16_t  w_format_tag;
+    uint16_t  n_channels;
+    uint32_t  n_samples_per_sec;
+    uint32_t  n_avg_bytes_per_sec;
+    uint16_t  n_block_align;
+    uint16_t  w_bits_per_sample;
+    uint16_t  cb_size;
 } WAVEFORMATEX_avilib;
 
-typedef struct
-{
-  uint32_t fcc_type; 
-  uint32_t fcc_handler; 
-  uint32_t dw_flags; 
-  uint32_t dw_caps; 
-  uint16_t w_priority;
-  uint16_t w_language;
-  uint32_t dw_scale;
-  uint32_t dw_rate;
-  uint32_t dw_start;
-  uint32_t dw_length;
-  uint32_t dw_initial_frames;
-  uint32_t dw_suggested_buffer_size;
-  uint32_t dw_quality;
-  uint32_t dw_sample_size;
-  uint32_t dw_left;
-  uint32_t dw_top;
-  uint32_t dw_right;
-  uint32_t dw_bottom;
-  uint32_t dw_edit_count;
-  uint32_t dw_format_change_count;
-  char     sz_name[64];
+typedef struct {
+    uint32_t fcc_type;
+    uint32_t fcc_handler;
+    uint32_t dw_flags;
+    uint32_t dw_caps;
+    uint16_t w_priority;
+    uint16_t w_language;
+    uint32_t dw_scale;
+    uint32_t dw_rate;
+    uint32_t dw_start;
+    uint32_t dw_length;
+    uint32_t dw_initial_frames;
+    uint32_t dw_suggested_buffer_size;
+    uint32_t dw_quality;
+    uint32_t dw_sample_size;
+    uint32_t dw_left;
+    uint32_t dw_top;
+    uint32_t dw_right;
+    uint32_t dw_bottom;
+    uint32_t dw_edit_count;
+    uint32_t dw_format_change_count;
+    char     sz_name[64];
 } AVISTREAMINFO;
 
-typedef struct
-{
-  
-  long   fdes;              /* File descriptor of AVI file */
-  long   mode;              /* 0 for reading, 1 for writing */
-  
-  long   width;             /* Width  of a video frame */
-  long   height;            /* Height of a video frame */
-  double fps;               /* Frames per second */
-  char   compressor[8];     /* Type of compressor, 4 bytes + padding for 0 byte */
-  char   compressor2[8];     /* Type of compressor, 4 bytes + padding for 0 byte */
-  long   video_strn;        /* Video stream number */
-  long   video_frames;      /* Number of video frames */
-  char   video_tag[4];      /* Tag of video data */
-  long   video_pos;         /* Number of next frame to be read
+typedef struct {
+
+    long   fdes;              /* File descriptor of AVI file */
+    long   mode;              /* 0 for reading, 1 for writing */
+
+    long   width;             /* Width  of a video frame */
+    long   height;            /* Height of a video frame */
+    double fps;               /* Frames per second */
+    char   compressor[8];     /* Type of compressor, 4 bytes + padding for 0 byte */
+    char   compressor2[8];     /* Type of compressor, 4 bytes + padding for 0 byte */
+    long   video_strn;        /* Video stream number */
+    long   video_frames;      /* Number of video frames */
+    char   video_tag[4];      /* Tag of video data */
+    long   video_pos;         /* Number of next frame to be read
 			       (if index present) */
-  
-  unsigned long max_len;    /* maximum video chunk present */
-  
-  track_t track[AVI_MAX_TRACKS];  // up to AVI_MAX_TRACKS audio tracks supported
-  
-  off_t pos;        /* position in file */
-  long   n_idx;             /* number of index entries actually filled */
-  long   max_idx;           /* number of index entries actually allocated */
-  
-  off_t v_codech_off;       /* absolut offset of video codec (strh) info */ 
-  off_t v_codecf_off;       /* absolut offset of video codec (strf) info */ 
-  
-  unsigned char (*idx)[16]; /* index entries (AVI idx1 tag) */
-  video_index_entry *video_index;
-  
-  off_t last_pos;          /* Position of last frame written */
-  unsigned long last_len;          /* Length of last frame written */
-  int must_use_index;              /* Flag if frames are duplicated */
-  off_t movi_start;
-  
-  int anum;            // total number of audio tracks 
-  int aptr;            // current audio working track 
-  
-  BITMAPINFOHEADER_avilib *bitmap_info_header;
-  WAVEFORMATEX_avilib *wave_format_ex[AVI_MAX_TRACKS];
+
+    unsigned long max_len;    /* maximum video chunk present */
+
+    track_t track[AVI_MAX_TRACKS];  // up to AVI_MAX_TRACKS audio tracks supported
+
+    off_t pos;        /* position in file */
+    long   n_idx;             /* number of index entries actually filled */
+    long   max_idx;           /* number of index entries actually allocated */
+
+    off_t v_codech_off;       /* absolut offset of video codec (strh) info */
+    off_t v_codecf_off;       /* absolut offset of video codec (strf) info */
+
+    unsigned char (*idx)[16]; /* index entries (AVI idx1 tag) */
+    video_index_entry *video_index;
+
+    off_t last_pos;          /* Position of last frame written */
+    unsigned long last_len;          /* Length of last frame written */
+    int must_use_index;              /* Flag if frames are duplicated */
+    off_t movi_start;
+
+    int anum;            // total number of audio tracks
+    int aptr;            // current audio working track
+
+    BITMAPINFOHEADER_avilib *bitmap_info_header;
+    WAVEFORMATEX_avilib *wave_format_ex[AVI_MAX_TRACKS];
 } avi_t;
 
 #define AVI_MODE_WRITE  0
@@ -257,7 +250,7 @@ typedef struct
 #define IBM_FORMAT_ADPCM                (0x0103)
 #endif
 
-avi_t* AVI_open_output_file(char * filename);
+avi_t *AVI_open_output_file(char *filename);
 void AVI_set_video(avi_t *AVI, int width, int height, double fps, char *compressor);
 void AVI_set_audio(avi_t *AVI, int channels, long rate, int bits, int format, long mp3rate);
 int  AVI_write_frame(avi_t *AVI, char *data, long bytes, int keyframe);
@@ -276,7 +269,7 @@ long AVI_video_frames(avi_t *AVI);
 int  AVI_video_width(avi_t *AVI);
 int  AVI_video_height(avi_t *AVI);
 double AVI_frame_rate(avi_t *AVI);
-char* AVI_video_compressor(avi_t *AVI);
+char *AVI_video_compressor(avi_t *AVI);
 
 int  AVI_audio_channels(avi_t *AVI);
 int  AVI_audio_bits(avi_t *AVI);
@@ -306,8 +299,8 @@ long AVI_video_codech_offset(avi_t *AVI);
 long AVI_video_codecf_offset(avi_t *AVI);
 
 int  AVI_read_data(avi_t *AVI, char *vidbuf, long max_vidbuf,
-                               char *audbuf, long max_audbuf,
-                               long *len);
+                   char *audbuf, long max_audbuf,
+                   long *len);
 
 void AVI_print_error(char *str);
 char *AVI_strerror(void);
@@ -328,53 +321,49 @@ int AVI_get_audio_track(avi_t *AVI);
 int AVI_audio_tracks(avi_t *AVI);
 
 
-struct riff_struct 
-{
-  unsigned char id[4];   /* RIFF */
-  uint32_t len;
-  unsigned char wave_id[4]; /* WAVE */
+struct riff_struct {
+    unsigned char id[4];   /* RIFF */
+    uint32_t len;
+    unsigned char wave_id[4]; /* WAVE */
 };
 
 
-struct chunk_struct 
-{
-	unsigned char id[4];
-	uint32_t len;
+struct chunk_struct {
+    unsigned char id[4];
+    uint32_t len;
 };
 
-struct common_struct 
-{
-	uint16_t wFormatTag;
-	uint16_t wChannels;
-	uint32_t dwSamplesPerSec;
-	uint32_t dwAvgBytesPerSec;
-	uint16_t wBlockAlign;
-	uint16_t wBitsPerSample;  /* Only for PCM */
+struct common_struct {
+    uint16_t wFormatTag;
+    uint16_t wChannels;
+    uint32_t dwSamplesPerSec;
+    uint32_t dwAvgBytesPerSec;
+    uint16_t wBlockAlign;
+    uint16_t wBitsPerSample;  /* Only for PCM */
 };
 
-struct wave_header 
-{
-	struct riff_struct   riff;
-	struct chunk_struct  format;
-	struct common_struct common;
-	struct chunk_struct  data;
+struct wave_header {
+    struct riff_struct   riff;
+    struct chunk_struct  format;
+    struct common_struct common;
+    struct chunk_struct  data;
 };
 
 
 
 struct AVIStreamHeader {
-  long  fccType;
-  long  fccHandler;
-  long  dwFlags;
-  long  dwPriority;
-  long  dwInitialFrames;
-  long  dwScale;
-  long  dwRate;
-  long  dwStart;
-  long  dwLength;
-  long  dwSuggestedBufferSize;
-  long  dwQuality;
-  long  dwSampleSize;
+    long  fccType;
+    long  fccHandler;
+    long  dwFlags;
+    long  dwPriority;
+    long  dwInitialFrames;
+    long  dwScale;
+    long  dwRate;
+    long  dwStart;
+    long  dwLength;
+    long  dwSuggestedBufferSize;
+    long  dwQuality;
+    long  dwSampleSize;
 };
 
 #endif

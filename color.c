@@ -16,10 +16,10 @@
 # along with this program; if not, write to the Free Software               #
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA #
 #                                                                           #
-****************************************************************************/ 
+****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h> 
+#include <unistd.h>
 #include "color.h"
 
 static int *LutYr = NULL;
@@ -47,88 +47,89 @@ static int *LutBu = NULL;
 unsigned char
 RGB24_TO_Y(unsigned char r, unsigned char g, unsigned char b)
 {
-return (LutYr[(r)] + LutYg[(g)] + LutYb[(b)]);
+    return (LutYr[(r)] + LutYg[(g)] + LutYb[(b)]);
 }
 unsigned char
 YR_TO_V(unsigned char r, unsigned char y)
 {
-return (LutVr[(r)] + LutVrY[(y)]);
+    return (LutVr[(r)] + LutVrY[(y)]);
 }
 unsigned char
 YB_TO_U(unsigned char b, unsigned char y)
 {
-return (LutUb[(b)] + LutUbY[(y)]);
+    return (LutUb[(b)] + LutUbY[(y)]);
 }
 unsigned char
 R_FROMYV(unsigned char y, unsigned char v)
 {
-return CLIP((y) + LutRv[(v)]);
+    return CLIP((y) + LutRv[(v)]);
 }
 unsigned char
 G_FROMYUV(unsigned char y, unsigned char u, unsigned char v)
 {
-return CLIP((y) + LutGu[(u)] + LutGv[(v)]);
+    return CLIP((y) + LutGu[(u)] + LutGv[(v)]);
 }
 unsigned char
 B_FROMYU(unsigned char y, unsigned char u)
 {
-return CLIP((y) + LutBu[(u)]);
+    return CLIP((y) + LutBu[(u)]);
 }
 
 void initLut(void)
 {
-	int i;
-	#define Rcoef 299 
-	#define Gcoef 587 
-	#define Bcoef 114 
-	#define Vrcoef 711 //656 //877 
-	#define Ubcoef 560 //500 //493 564
-	
-	#define CoefRv 1402
-	#define CoefGu 714 // 344
-	#define CoefGv 344 // 714
-	#define CoefBu 1772
-	
-	LutYr = malloc(256*sizeof(int));
-	LutYg = malloc(256*sizeof(int));
-	LutYb = malloc(256*sizeof(int));
-	LutVr = malloc(256*sizeof(int));
-	LutVrY = malloc(256*sizeof(int));
-	LutUb = malloc(256*sizeof(int));
-	LutUbY = malloc(256*sizeof(int));
-	
-	LutRv = malloc(256*sizeof(int));
-	LutGu = malloc(256*sizeof(int));
-	LutGv = malloc(256*sizeof(int));
-	LutBu = malloc(256*sizeof(int));
-	for (i= 0;i < 256;i++){
-	    LutYr[i] = i*Rcoef/1000 ;
-	    LutYg[i] = i*Gcoef/1000 ;
-	    LutYb[i] = i*Bcoef/1000 ;
-	    LutVr[i] = i*Vrcoef/1000;
-	    LutUb[i] = i*Ubcoef/1000;
-	    LutVrY[i] = 128 -(i*Vrcoef/1000);
-	    LutUbY[i] = 128 -(i*Ubcoef/1000);
-	    LutRv[i] = (i-128)*CoefRv/1000;
-	    LutBu[i] = (i-128)*CoefBu/1000;
-	    LutGu[i] = (128-i)*CoefGu/1000;
-	    LutGv[i] = (128-i)*CoefGv/1000;
-	}	
+    int i;
+#define Rcoef 299
+#define Gcoef 587
+#define Bcoef 114
+#define Vrcoef 711 //656 //877 
+#define Ubcoef 560 //500 //493 564
+
+#define CoefRv 1402
+#define CoefGu 714 // 344
+#define CoefGv 344 // 714
+#define CoefBu 1772
+
+    LutYr = malloc(256*sizeof(int));
+    LutYg = malloc(256*sizeof(int));
+    LutYb = malloc(256*sizeof(int));
+    LutVr = malloc(256*sizeof(int));
+    LutVrY = malloc(256*sizeof(int));
+    LutUb = malloc(256*sizeof(int));
+    LutUbY = malloc(256*sizeof(int));
+
+    LutRv = malloc(256*sizeof(int));
+    LutGu = malloc(256*sizeof(int));
+    LutGv = malloc(256*sizeof(int));
+    LutBu = malloc(256*sizeof(int));
+    for (i= 0; i < 256; i++) {
+        LutYr[i] = i*Rcoef/1000 ;
+        LutYg[i] = i*Gcoef/1000 ;
+        LutYb[i] = i*Bcoef/1000 ;
+        LutVr[i] = i*Vrcoef/1000;
+        LutUb[i] = i*Ubcoef/1000;
+        LutVrY[i] = 128 -(i*Vrcoef/1000);
+        LutUbY[i] = 128 -(i*Ubcoef/1000);
+        LutRv[i] = (i-128)*CoefRv/1000;
+        LutBu[i] = (i-128)*CoefBu/1000;
+        LutGu[i] = (128-i)*CoefGu/1000;
+        LutGv[i] = (128-i)*CoefGv/1000;
+    }
 }
 
 
-void freeLut(void){
-	free(LutYr);
-	free(LutYg);
-	free(LutYb);
-	free(LutVr);
-	free(LutVrY);
-	free(LutUb);
-	free(LutUbY);
-	
-	free(LutRv);
-	free(LutGu);
-	free(LutGv);
-	free(LutBu);
+void freeLut(void)
+{
+    free(LutYr);
+    free(LutYg);
+    free(LutYb);
+    free(LutVr);
+    free(LutVrY);
+    free(LutUb);
+    free(LutUbY);
+
+    free(LutRv);
+    free(LutGu);
+    free(LutGv);
+    free(LutBu);
 }
 

@@ -38,8 +38,8 @@
 #define ERR_DEPTH_MISMATCH 15
 
 int jpeg_decode(unsigned char **pic, unsigned char *buf, int *width,
-		int *height);
-int 
+                int *height);
+int
 get_picture(unsigned char *buf,int size);
 int
 get_pictureYV2(unsigned char *buf,int width,int height);

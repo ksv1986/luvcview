@@ -16,35 +16,35 @@
 # along with this program; if not, write to the Free Software               #
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA #
 #                                                                           #
-****************************************************************************/ 
+****************************************************************************/
 typedef struct Myrgb16 {
-	unsigned short blue:5;
-	unsigned short green:6;
-	unsigned short red:5;
+    unsigned short blue:5;
+    unsigned short green:6;
+    unsigned short red:5;
 } Myrgb16;
 typedef struct Myrgb24 {
-	unsigned char blue;
-	unsigned char green;
-	unsigned char red;
+    unsigned char blue;
+    unsigned char green;
+    unsigned char red;
 } Myrgb24;
 typedef struct Myrgb32 {
-	unsigned char blue;
-	unsigned char green;
-	unsigned char red;
-	unsigned char alpha;
+    unsigned char blue;
+    unsigned char green;
+    unsigned char red;
+    unsigned char alpha;
 } Myrgb32;
 
 typedef struct MyYUV422 {
-	unsigned char y0;
-	unsigned char u;
-	unsigned char y1;
-	unsigned char v;
+    unsigned char y0;
+    unsigned char u;
+    unsigned char y1;
+    unsigned char v;
 } MyYUV422;
 
 typedef struct MyYUV444 {
-	unsigned char y;
-	unsigned char u;
-	unsigned char v;
+    unsigned char y;
+    unsigned char u;
+    unsigned char v;
 } MyYUV444;
 
 #define CLIP(color) (unsigned char)(((color)>0xFF)?0xff:(((color)<0)?0:(color)))

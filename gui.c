@@ -43,11 +43,11 @@ typedef struct YUYV {
 } YUYV;
 
 /* Each pixels in the resulting figure need to be set. For each one take the nearest available in the original surface
-If the last Chroma component is U take a V else take U by moving the index in the nearest pixel from the left 
+If the last Chroma component is U take a V else take U by moving the index in the nearest pixel from the left
 This routine only deal with X axis you need to make the original picture with the good height */
 
 static int resize(unsigned char *INbuff, unsigned char *OUTbuff,
-		  int Owidth, int Oheight, int width, int height)
+                  int Owidth, int Oheight, int width, int height)
 {
     int rx;
     int xscale;
@@ -56,26 +56,26 @@ static int resize(unsigned char *INbuff, unsigned char *OUTbuff,
     YUYV *input = (YUYV *) INbuff;
     YUYV *output = (YUYV *) OUTbuff;
     if (!width || !height)
-	return -1;
+        return -1;
     /* at start Cc mean a U component so LastCc should be a V */
     lastCc = 1;
     xscale = (Owidth << 16) / width;
     for (y = 0; y < height; y++) {
-	for (x = 0; x < width; x++) {
-	    rx = x * xscale >> 16;
-	    if (((2 * rx + 1) & 0x03) == 3)
-		Cc = 1;		// find V component
-	    else
-		Cc = 0;
-	    if (lastCc == Cc) {
-		/* no Chroma interleave correct by moving the index */
-		rx -= 1;
-		Cc = !Cc;
-	    }
-	    memcpy(output++, &input[ADDRESSE((int) rx, (int) y, Owidth)],
-		   sizeof(YUYV));
-	    lastCc = Cc;
-	}
+        for (x = 0; x < width; x++) {
+            rx = x * xscale >> 16;
+            if (((2 * rx + 1) & 0x03) == 3)
+                Cc = 1;		// find V component
+            else
+                Cc = 0;
+            if (lastCc == Cc) {
+                /* no Chroma interleave correct by moving the index */
+                rx -= 1;
+                Cc = !Cc;
+            }
+            memcpy(output++, &input[ADDRESSE((int) rx, (int) y, Owidth)],
+                   sizeof(YUYV));
+            lastCc = Cc;
+        }
     }
     return 0;
 }
@@ -86,21 +86,21 @@ int creatButt(int width, int height)
     int hOrg = 0;
     jpeg_decode(&YUYVbuttOrg, bouttons, &wOrg, &hOrg);
     if (wOrg != BUTTWIDTH || hOrg != BUTTHEIGHT) {
-	printf(" alloc jpeg Button fail !!\n");
-	goto err;
+        printf(" alloc jpeg Button fail !!\n");
+        goto err;
     }
     YUYVbutt = (unsigned char *) calloc(1, width * height << 1);
     if (!YUYVbutt) {
-	printf(" alloc Button fail !!\n");
-	goto err;
+        printf(" alloc Button fail !!\n");
+        goto err;
     }
     if (resize(YUYVbuttOrg, YUYVbutt, BUTTWIDTH, BUTTHEIGHT, width, height)
-	< 0) {
-	printf(" resize Button fail !!\n");
-	goto err;
+            < 0) {
+        printf(" resize Button fail !!\n");
+        goto err;
     }
     return 0;
-  err:
+err:
     exit(0);
 }
 int destroyButt(void)

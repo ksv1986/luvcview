@@ -81,11 +81,11 @@ struct vdIn {
 };
 int
 init_videoIn(struct vdIn *vd, char *device, int width, int height, int fps,
-	     int format, int grabmethod, char *avifilename);
+             int format, int grabmethod, char *avifilename);
 int enum_controls(int vd);
 int save_controls(int vd);
 int load_controls(int vd);
-	     
+
 int uvcGrab(struct vdIn *vd);
 int close_v4l2(struct vdIn *vd);
 
