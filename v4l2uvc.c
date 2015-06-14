@@ -22,6 +22,7 @@
 *******************************************************************************/
 
 #include <stdlib.h>
+#include <SDL_timer.h>
 
 #include "v4l2uvc.h"
 #include "utils.h"

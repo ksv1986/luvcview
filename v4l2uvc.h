@@ -29,7 +29,7 @@
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <sys/select.h>
-#include <linux/videodev.h>
+#include <linux/videodev2.h>
 #include "avilib.h"
 
 #include "uvcvideo.h"
@@ -82,6 +82,7 @@ struct vdIn {
 int
 init_videoIn(struct vdIn *vd, char *device, int width, int height, int fps,
              int format, int grabmethod, char *avifilename);
+int check_videoIn(struct vdIn *vd, char *device);
 int enum_controls(int vd);
 int save_controls(int vd);
 int load_controls(int vd);
